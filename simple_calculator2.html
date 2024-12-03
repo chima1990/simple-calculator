@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator Program</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f9;
+      margin: 0;
+    }
+    .calculator {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input, button {
+      padding: 10px;
+      font-size: 18px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .display {
+      width: 100%;
+      margin-bottom: 10px;
+      text-align: right;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1>Calculator</h1>
+    <input type="text" class="display" id="display" disabled />
+    <div>
+      <button onclick="appendNumber(1)">1</button>
+      <button onclick="appendNumber(2)">2</button>
+      <button onclick="appendNumber(3)">3</button>
+      <button onclick="appendNumber(4)">4</button>
+    </div>
+    <div>
+      <button onclick="appendNumber(5)">5</button>
+      <button onclick="appendNumber(6)">6</button>
+      <button onclick="appendNumber(7)">7</button>
+      <button onclick="appendNumber(8)">8</button>
+    </div>
+    <div>
+      <button onclick="appendNumber(9)">9</button>
+      <button onclick="appendNumber(0)">0</button>
+      <button onclick="clearDisplay()">C</button>
+      <button onclick="deleteLast()">DEL</button>
+    </div>
+    <div>
+      <button onclick="chooseOperation('+')">+</button>
+      <button onclick="chooseOperation('-')">-</button>
+      <button onclick="chooseOperation('*')">*</button>
+      <button onclick="chooseOperation('/')">/</button>
+    </div>
+    <div>
+      <button onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    let currentInput = '';
+    let previousInput = '';
+    let currentOperation = null;
+
+    function appendNumber(number) {
+      currentInput += number;
+      document.getElementById('display').value = currentInput;
+    }
+
+    function chooseOperation(operation) {
+      if (currentInput === '') return;
+      if (previousInput !== '') {
+        calculate();
+      }
+      currentOperation = operation;
+      previousInput = currentInput;
+      currentInput = '';
+    }
+
+    function clearDisplay() {
+      currentInput = '';
+      previousInput = '';
+      currentOperation = null;
+      document.getElementById('display').value = '';
+    }
+
+    function deleteLast() {
+      currentInput = currentInput.slice(0, -1);
+      document.getElementById('display').value = currentInput;
+    }
+
+    function calculate() {
+      let result;
+      const prev = parseFloat(previousInput);
+      const current = parseFloat(currentInput);
+      if (isNaN(prev) || isNaN(current)) return;
+      
+      switch (currentOperation) {
+        case '+':
+          result = prev + current;
+          break;
+        case '-':
+          result = prev - current;
+          break;
+        case '*':
+          result = prev * current;
+          break;
+        case '/':
+          result = prev / current;
+          break;
+        default:
+          return;
+      }
+
+      currentInput = result.toString();
+      currentOperation = null;
+      previousInput = '';
+      document.getElementById('display').value = currentInput;
+    }
+  </script>
+</body>
+</html>
