@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Program</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculator Program</h1>
+    <p>Open the browser console to interact with the calculator.</p>
+    <button onclick="startCalculator()">Start Calculator</button>
+    <div id="output"></div>
+
+    <script>
+        // Function to add two numbers
+        function add(x, y) {
+            return x + y;
+        }
+
+        // Function to subtract two numbers
+        function subtract(x, y) {
+            return x - y;
+        }
+
+        // Function to multiply two numbers
+        function multiply(x, y) {
+            return x * y;
+        }
+
+        // Function to divide two numbers, handling division by zero
+        function divide(x, y) {
+            if (y === 0) {
+                return "Error! Division by zero.";
+            }
+            return x / y;
+        }
+
+        // Main calculator function
+        function calculator() {
+            console.log("Welcome to the Calculator Program");
+
+            while (true) {
+                console.log("\nSelect operation:");
+                console.log("1. Addition");
+                console.log("2. Subtraction");
+                console.log("3. Multiplication");
+                console.log("4. Division");
+                console.log("5. Exit");
+
+                let choice = prompt("Enter choice (1/2/3/4/5):");
+
+                if (choice === "5") {
+                    console.log("Thank you for using the Calculator Program. Goodbye!");
+                    break;
+                }
+
+                if (["1", "2", "3", "4"].includes(choice)) {
+                    let num1 = parseFloat(prompt("Enter first number:"));
+                    let num2 = parseFloat(prompt("Enter second number:"));
+
+                    if (isNaN(num1) || isNaN(num2)) {
+                        console.log("Invalid input! Please enter numeric values.");
+                        continue;
+                    }
+
+                    let result;
+                    switch (choice) {
+                        case "1":
+                            result = add(num1, num2);
+                            console.log(`The result of ${num1} + ${num2} is: ${result}`);
+                            break;
+                        case "2":
+                            result = subtract(num1, num2);
+                            console.log(`The result of ${num1} - ${num2} is: ${result}`);
+                            break;
+                        case "3":
+                            result = multiply(num1, num2);
+                            console.log(`The result of ${num1} * ${num2} is: ${result}`);
+                            break;
+                        case "4":
+                            result = divide(num1, num2);
+                            console.log(`The result of ${num1} / ${num2} is: ${result}`);
+                            break;
+                    }
+                } else {
+                    console.log("Invalid Input. Please select a valid operation.");
+                }
+            }
+        }
+
+        // Start the calculator when the button is clicked
+        function startCalculator() {
+            calculator();
+        }
+    </script>
+</body>
+</html>
